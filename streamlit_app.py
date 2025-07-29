@@ -39,8 +39,10 @@ def parse_replay_to_txt(replay):
         if isinstance(event, PlayerStatsEvent):
             player_populations[event.pid] = (event.food_used, event.food_made)
             name = players.get(event.pid, f"Player {event.pid}")
-            pop_data.append({"minute": event.second / 60, "player": name, "Used": event.food_used, "Limit": event.food_made})
-            income_data.append({"minute": event.second / 60, "player": name, "Minerals": event.minerals_collection_rate, "Gas": event.vespene_collection_rate})
+            pop_data.append({"minute": event.second / 60, "player_metric": f"{name} Used", "value": event.food_used})
+            pop_data.append({"minute": event.second / 60, "player_metric": f"{name} Limit", "value": event.food_made})
+            income_data.append({"minute": event.second / 60, "player_resource": f"{name} Minerals", "value": event.minerals_collection_rate})
+            income_data.append({"minute": event.second / 60, "player_resource": f"{name} Gas", "value": event.vespene_collection_rate})
 
         pop_info = ""
         if hasattr(event, 'control_pid') and event.control_pid in player_populations:
@@ -113,11 +115,9 @@ if replay_file:
     st.download_button("Download Log", log_output, "replay_events.txt")
 
     st.subheader("Population Over Time")
-    pop_chart = pop_df.melt(id_vars=['minute', 'player'], value_vars=['Used', 'Limit'], var_name='Metric', value_name='Value')
-    pop_pivot = pop_chart.pivot(index='minute', columns=['player', 'Metric'], values='Value')
-    st.line_chart(pop_pivot)
+    pop_chart = pop_df.pivot(index="minute", columns="player_metric", values="value")
+    st.line_chart(pop_chart)
 
     st.subheader("Income Over Time")
-    income_chart = income_df.melt(id_vars=['minute', 'player'], value_vars=['Minerals', 'Gas'], var_name='Resource', value_name='Value')
-    income_pivot = income_chart.pivot(index='minute', columns=['player', 'Resource'], values='Value')
-    st.line_chart(income_pivot)
+    income_chart = income_df.pivot(index="minute", columns="player_resource", values="value")
+    st.line_chart(income_chart)
