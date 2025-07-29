@@ -15,8 +15,8 @@ UNIT_COSTS = {
 
 def parse_replay_to_txt(replay):
     events_log = []
-    pop_data = defaultdict(list)
-    income_data = defaultdict(list)
+    pop_data = []
+    income_data = []
 
     events_log.append(f"Map: {replay.map_name}")
     events_log.append("Players:")
@@ -39,8 +39,8 @@ def parse_replay_to_txt(replay):
         if isinstance(event, PlayerStatsEvent):
             player_populations[event.pid] = (event.food_used, event.food_made)
             name = players.get(event.pid, f"Player {event.pid}")
-            pop_data[name].append({"minute": event.second / 60, "used": event.food_used, "made": event.food_made})
-            income_data[name].append({"minute": event.second / 60, "minerals": event.minerals_collection_rate, "gas": event.vespene_collection_rate})
+            pop_data.append({"minute": event.second / 60, "player": name, "Used": event.food_used, "Limit": event.food_made})
+            income_data.append({"minute": event.second / 60, "player": name, "Minerals": event.minerals_collection_rate, "Gas": event.vespene_collection_rate})
 
         pop_info = ""
         if hasattr(event, 'control_pid') and event.control_pid in player_populations:
@@ -100,32 +100,24 @@ def parse_replay_to_txt(replay):
         winner_names = ', '.join(player.name for player in winner.players)
         events_log.append(f"[Game End] Winner: {winner_names}. Game length: {duration_str}.")
 
-    return '\n'.join(events_log), pop_data, income_data
+    return '\n'.join(events_log), pd.DataFrame(pop_data), pd.DataFrame(income_data)
 
 st.title("Starcraft 2 Replay Parser")
 replay_file = st.file_uploader("Upload a replay file", type="SC2Replay")
 
 if replay_file:
     replay = sc2reader.load_replay(replay_file, load_level=4)
-    log_output, pop_data, income_data = parse_replay_to_txt(replay)
+    log_output, pop_df, income_df = parse_replay_to_txt(replay)
 
     st.text_area("Parsed Replay Log:", log_output, height=400)
     st.download_button("Download Log", log_output, "replay_events.txt")
 
     st.subheader("Population Over Time")
-    pop_df = pd.DataFrame()
-    for player, data in pop_data.items():
-        df = pd.DataFrame(data)
-        df.set_index("minute", inplace=True)
-        pop_df[f"{player} Used"] = df["used"]
-        pop_df[f"{player} Limit"] = df["made"]
-    st.line_chart(pop_df)
+    pop_chart = pop_df.melt(id_vars=['minute', 'player'], value_vars=['Used', 'Limit'], var_name='Metric', value_name='Value')
+    pop_pivot = pop_chart.pivot(index='minute', columns=['player', 'Metric'], values='Value')
+    st.line_chart(pop_pivot)
 
     st.subheader("Income Over Time")
-    income_df = pd.DataFrame()
-    for player, data in income_data.items():
-        df = pd.DataFrame(data)
-        df.set_index("minute", inplace=True)
-        income_df[f"{player} Minerals"] = df["minerals"]
-        income_df[f"{player} Gas"] = df["gas"]
-    st.line_chart(income_df)
+    income_chart = income_df.melt(id_vars=['minute', 'player'], value_vars=['Minerals', 'Gas'], var_name='Resource', value_name='Value')
+    income_pivot = income_chart.pivot(index='minute', columns=['player', 'Resource'], values='Value')
+    st.line_chart(income_pivot)
