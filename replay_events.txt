@@ -1,0 +1,140 @@
+Map: Ley Lines
+Players:
+- LiquidMaNa (Protoss)
+- DnS (Protoss)
+Duration: 6 minutes and 40 seconds
+Date: 2025-06-27 11:19:41
+========================================
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceOverlord
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceStalker
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceGhost
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceColossus
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceRoach
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceOracle
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceMule
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceViking
+[00:00] [LiquidMaNa] [Upgrade Completed] RewardDanceInfestor
+[00:00] [DnS] [Upgrade Completed] RewardDanceOverlord
+[00:00] [DnS] [Upgrade Completed] RewardDanceStalker
+[00:00] [DnS] [Upgrade Completed] RewardDanceGhost
+[00:00] [DnS] [Upgrade Completed] RewardDanceColossus
+[00:00] [DnS] [Upgrade Completed] RewardDanceRoach
+[00:00] [DnS] [Upgrade Completed] RewardDanceOracle
+[00:00] [DnS] [Upgrade Completed] RewardDanceMule
+[00:00] [DnS] [Upgrade Completed] RewardDanceViking
+[00:00] [DnS] [Upgrade Completed] RewardDanceInfestor
+[00:00] [LiquidMaNa] [Upgrade Completed] GameHeartActive
+[00:00] [DnS] [Upgrade Completed] GameHeartActive
+[00:00] [LiquidMaNa] [Building Constructed] Nexus
+[00:00] [LiquidMaNa] [Upgrade Completed] SprayProtoss
+[00:00] [LiquidMaNa] [Upgrade Completed] SprayProtoss
+[00:00] [DnS] [Building Constructed] Nexus
+[00:00] [DnS] [Upgrade Completed] SprayProtoss
+[00:00] [DnS] [Upgrade Completed] SprayProtoss
+[00:00] [LiquidMaNa] [Economy] Workers: 12, Minerals Income: 0/min, Gas Income: 0/min [12.0/15.0]
+[00:00] [DnS] [Economy] Workers: 12, Minerals Income: 0/min, Gas Income: 0/min [12.0/15.0]
+[00:24] [LiquidMaNa] [Building Constructed] Pylon [14.0/15.0]
+[00:24] [DnS] [Building Constructed] Pylon [14.0/15.0]
+[00:49] [LiquidMaNa] [Building Constructed] WarpGate [15.0/15.0]
+[00:51] [DnS] [Building Constructed] WarpGate [15.0/23.0]
+[01:00] [LiquidMaNa] [Economy] Workers: 15, Minerals Income: 811/min, Gas Income: 0/min [16.0/23.0]
+[01:00] [DnS] [Economy] Workers: 15, Minerals Income: 867/min, Gas Income: 0/min [16.0/23.0]
+[01:03] [DnS] [Building Constructed] Assimilator [16.0/23.0]
+[01:04] [LiquidMaNa] [Building Constructed] Assimilator [16.0/23.0]
+[01:15] [DnS] [Building Constructed] Assimilator [17.0/23.0]
+[01:30] [LiquidMaNa] [Building Constructed] Assimilator [19.0/23.0]
+[01:32] [DnS] [Building Constructed] WarpGate [19.0/23.0]
+[01:38] [LiquidMaNa] [Building Constructed] WarpGate [19.0/23.0]
+[01:57] [DnS] [Building Constructed] CyberneticsCore [20.0/23.0]
+[01:58] [LiquidMaNa] [Building Constructed] CyberneticsCore [20.0/23.0]
+[02:00] [LiquidMaNa] [Economy] Workers: 20, Minerals Income: 923/min, Gas Income: 156/min [21.0/23.0]
+[02:00] [DnS] [Economy] Workers: 20, Minerals Income: 839/min, Gas Income: 156/min [21.0/23.0]
+[02:11] [DnS] [Building Constructed] Pylon [22.0/23.0]
+[02:14] [LiquidMaNa] [Building Constructed] Pylon [22.0/23.0]
+[02:49] [LiquidMaNa] [Building Constructed] Stargate [24.0/31.0]
+[03:00] [LiquidMaNa] [Economy] Workers: 24, Minerals Income: 895/min, Gas Income: 313/min [28.0/31.0]
+[03:00] [DnS] [Economy] Workers: 24, Minerals Income: 867/min, Gas Income: 313/min [28.0/31.0]
+[03:03] [DnS] [Building Constructed] Pylon [28.0/31.0]
+[03:16] [LiquidMaNa] [Building Constructed] Pylon [29.0/31.0]
+[03:19] [DnS] [Unit Produced] Sentry [28.0/31.0]
+[03:26] [DnS] [Unit Produced] Stalker [30.0/31.0]
+[03:31] [LiquidMaNa] [Unit Produced] Adept [29.0/31.0]
+[03:39] [LiquidMaNa] [Unit Produced] Adept [29.0/31.0]
+[03:48] [DnS] [Building Constructed] Nexus [32.0/39.0]
+[03:48] [DnS] [Upgrade Completed] SprayProtoss [32.0/39.0]
+[03:51] [DnS] [Unit Produced] Sentry [33.0/39.0]
+[04:00] [LiquidMaNa] [Economy] Workers: 25, Minerals Income: 923/min, Gas Income: 335/min [34.0/39.0]
+[04:00] [DnS] [Economy] Workers: 24, Minerals Income: 895/min, Gas Income: 313/min [33.0/39.0]
+[04:06] [DnS] [Unit Produced] Phoenix [33.0/39.0]
+[04:09] [DnS] [Unit Produced] Sentry [33.0/39.0]
+[04:11] [LiquidMaNa] [Unit Produced] Stalker [37.0/39.0]
+[04:17] [DnS] [Building Constructed] TwilightCouncil [34.0/39.0]
+[04:29] [LiquidMaNa] [Building Constructed] Nexus [37.0/39.0]
+[04:29] [LiquidMaNa] [Upgrade Completed] SprayProtoss [37.0/39.0]
+[04:34] [LiquidMaNa] [Unit Produced] Oracle [37.0/39.0]
+[04:46] [LiquidMaNa] [Unit Produced] Stalker [37.0/39.0]
+[04:48] [LiquidMaNa] [Building Constructed] Pylon [37.0/39.0]
+[04:51] [DnS] [Building Constructed] Pylon [35.0/39.0]
+[04:59] [LiquidMaNa] [Building Constructed] TwilightCouncil [38.0/39.0]
+[05:00] [LiquidMaNa] [Economy] Workers: 26, Minerals Income: 979/min, Gas Income: 335/min [38.0/39.0]
+[05:00] [DnS] [Economy] Workers: 27, Minerals Income: 1035/min, Gas Income: 313/min [36.0/39.0]
+[05:06] [DnS] [Unit Lost] Phoenix [36.0/39.0]
+[05:08] [DnS] [Upgrade Completed] WarpGateResearch [36.0/39.0]
+[05:27] [LiquidMaNa] [Upgrade Completed] WarpGateResearch [40.0/47.0]
+[05:28] [DnS] [Upgrade Completed] SprayProtoss [36.0/47.0]
+[05:36] [LiquidMaNa] [Building Constructed] WarpGate [40.0/47.0]
+[06:00] [LiquidMaNa] [Economy] Workers: 30, Minerals Income: 1035/min, Gas Income: 358/min [45.0/47.0]
+[06:00] [DnS] [Economy] Workers: 30, Minerals Income: 1231/min, Gas Income: 358/min [46.0/54.0]
+[06:05] [LiquidMaNa] [Unit Lost] Adept [45.0/47.0]
+[06:09] [LiquidMaNa] [Unit Lost] Adept [45.0/47.0]
+[06:09] [LiquidMaNa] [Upgrade Completed] SprayProtoss [45.0/47.0]
+[06:23] [DnS] [Unit Produced] Phoenix [47.0/54.0]
+[06:39] [DnS] [Building Constructed] Nexus [47.0/54.0]
+[06:39] [DnS] [Upgrade Completed] SprayProtoss [47.0/54.0]
+[06:51] [DnS] [Building Constructed] Pylon [50.0/54.0]
+[06:54] [DnS] [Unit Produced] Phoenix [50.0/54.0]
+[07:00] [LiquidMaNa] [Economy] Workers: 34, Minerals Income: 1287/min, Gas Income: 335/min [57.0/62.0]
+[07:00] [DnS] [Economy] Workers: 34, Minerals Income: 1483/min, Gas Income: 358/min [50.0/54.0]
+[07:06] [DnS] [Building Constructed] Pylon [50.0/54.0]
+[07:11] [LiquidMaNa] [Building Constructed] Pylon [57.0/62.0]
+[07:23] [DnS] [Unit Lost] Phoenix [56.0/62.0]
+[07:23] [DnS] [Building Constructed] RoboticsFacility [56.0/62.0]
+[07:23] [DnS] [Upgrade Completed] BlinkTech [56.0/62.0]
+[07:37] [LiquidMaNa] [Building Constructed] WarpGate [62.0/62.0]
+[07:40] [DnS] [Building Constructed] Pylon [59.0/70.0]
+[07:47] [LiquidMaNa] [Building Constructed] Pylon [66.0/70.0]
+[07:50] [DnS] [Unit Produced] Stalker [60.0/70.0]
+[07:50] [DnS] [Unit Produced] Stalker [60.0/70.0]
+[07:54] [DnS] [Unit Lost] Phoenix [60.0/70.0]
+[08:00] [LiquidMaNa] [Economy] Workers: 37, Minerals Income: 1679/min, Gas Income: 335/min [68.0/70.0]
+[08:00] [DnS] [Economy] Workers: 42, Minerals Income: 1819/min, Gas Income: 358/min [66.0/70.0]
+[08:01] [DnS] [Building Constructed] Assimilator [66.0/70.0]
+[08:04] [LiquidMaNa] [Building Constructed] Pylon [68.0/70.0]
+[08:09] [LiquidMaNa] [Upgrade Completed] BlinkTech [68.0/70.0]
+[08:12] [DnS] [Building Constructed] Forge [66.0/78.0]
+[08:17] [DnS] [Unit Lost] Stalker [66.0/78.0]
+[08:19] [DnS] [Upgrade Completed] SprayProtoss [66.0/78.0]
+[08:19] [DnS] [Building Constructed] Pylon [66.0/78.0]
+[08:19] [DnS] [Unit Lost] Stalker [66.0/78.0]
+[08:21] [DnS] [Unit Lost] Stalker [64.0/93.0]
+[08:23] [DnS] [Unit Lost] Stalker [64.0/93.0]
+[08:25] [DnS] [Unit Lost] Stalker [64.0/93.0]
+[08:27] [DnS] [Unit Lost] Stalker [64.0/93.0]
+[08:28] [LiquidMaNa] [Unit Lost] Stalker [73.0/78.0]
+[08:28] [LiquidMaNa] [Unit Lost] Stalker [73.0/78.0]
+[08:29] [LiquidMaNa] [Unit Lost] Stalker [73.0/78.0]
+[08:32] [DnS] [Unit Lost] Stalker [60.0/93.0]
+[08:36] [DnS] [Unit Lost] Stalker [60.0/93.0]
+[08:38] [DnS] [Unit Lost] Sentry [60.0/93.0]
+[08:40] [DnS] [Unit Lost] Sentry [60.0/93.0]
+[08:40] [DnS] [Unit Lost] Stalker [60.0/93.0]
+[08:41] [LiquidMaNa] [Unit Lost] Stalker [69.0/86.0]
+[08:44] [DnS] [Unit Lost] Sentry [60.0/93.0]
+[09:00] [LiquidMaNa] [Economy] Workers: 43, Minerals Income: 1819/min, Gas Income: 313/min [76.0/86.0]
+[09:00] [Meta] Big fight happened. Losses - DnS: 12 units (1125M/450G), LiquidMaNa: 4 units (500M/200G). Favored: LiquidMaNa
+[09:00] [DnS] [Economy] Workers: 43, Minerals Income: 1819/min, Gas Income: 515/min [54.0/93.0]
+[09:05] [LiquidMaNa] [Unit Lost] Stalker [76.0/86.0]
+[09:15] [DnS] [Unit Lost] Stalker [56.0/85.0]
+[09:19] [DnS] [Unit Lost] Stalker [56.0/85.0]
+[09:19] [DnS] [Unit Lost] Stalker [56.0/85.0]
+[Game End] Winner: LiquidMaNa. Game length: 6 minutes and 40 seconds.
