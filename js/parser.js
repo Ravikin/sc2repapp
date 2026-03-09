@@ -10,15 +10,13 @@ async function initPyodide(onProgress) {
     onProgress('Installing dependencies...');
     await pyodideInstance.loadPackage('micropip');
 
-    // mpyq doesn't have a pure Python wheel on PyPI, so we load it manually
-    const mpyqResponse = await fetch('python/mpyq.py');
-    const mpyqCode = await mpyqResponse.text();
-    pyodideInstance.FS.writeFile('/lib/python3.12/site-packages/mpyq.py', mpyqCode);
-
-    // Install sc2reader without deps (mpyq already placed manually)
+    // Install mpyq from bundled wheel (not available as pure wheel on PyPI)
+    // then install sc2reader which depends on it
+    const baseUrl = window.location.href.replace(/\/[^/]*$/, '/');
     await pyodideInstance.runPythonAsync(`
 import micropip
-await micropip.install('sc2reader', deps=False)
+await micropip.install('${baseUrl}python/wheels/mpyq-0.2.5-py3-none-any.whl')
+await micropip.install('sc2reader')
     `);
 
     onProgress('Loading parser...');
