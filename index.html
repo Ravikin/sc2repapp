@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SC2 Replay Analyzer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SC2 Replay Analyzer</h1>
+            <p>Upload a StarCraft 2 replay file to analyze builds, economy, and fights</p>
+        </header>
+
+        <div id="drop-zone" class="drop-zone">
+            <div class="drop-zone-icon">&#128190;</div>
+            <div class="drop-zone-text">Drop .SC2Replay file here or click to browse</div>
+            <div class="drop-zone-hint">All processing happens in your browser - no data is sent to any server</div>
+        </div>
+        <input type="file" id="file-input" accept=".SC2Replay,.sc2replay">
+
+        <div id="status" class="status hidden">
+            <div id="status-text" class="status-text">Loading...</div>
+            <div class="progress-track">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div id="results" class="results hidden">
+            <div class="toolbar">
+                <button id="download-btn" class="btn">Download Log</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="log">Event Log</button>
+                <button class="tab-btn" data-tab="charts">Charts</button>
+            </div>
+
+            <div id="tab-log" class="tab-panel active">
+                <pre id="log-output" class="log-output"></pre>
+            </div>
+
+            <div id="tab-charts" class="tab-panel">
+                <div class="chart-container">
+                    <canvas id="economy-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="supply-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="army-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/parser.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
