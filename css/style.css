@@ -97,6 +97,79 @@ header p {
     border-radius: 4px;
 }
 
+/* Game Summary */
+.game-summary {
+    background: #111827;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+}
+
+.summary-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.summary-map {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.summary-duration,
+.summary-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.player-cards {
+    display: flex;
+    gap: 12px;
+}
+
+.player-card {
+    flex: 1;
+    background: #0d1117;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.player-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #e0e0e0;
+}
+
+.player-details {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.player-race {
+    color: #aaa;
+}
+
+.player-league {
+    color: #888;
+    font-style: italic;
+}
+
+.result-win {
+    color: #4ade80;
+    font-weight: 600;
+}
+
+.result-loss {
+    color: #f87171;
+    font-weight: 600;
+}
+
 /* Results */
 .results {
     margin-top: 10px;
@@ -123,11 +196,17 @@ header p {
     background: #3a7bc8;
 }
 
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+}
+
 /* Tabs */
 .tabs {
     display: flex;
     gap: 4px;
     margin-bottom: 0;
+    flex-wrap: wrap;
 }
 
 .tab-btn {
@@ -190,27 +269,163 @@ header p {
     margin-bottom: 0;
 }
 
-/* Hidden */
-.hidden {
-    display: none !important;
+/* Minimap */
+.minimap-wrapper {
+    text-align: center;
+}
+
+#minimap-canvas {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+.minimap-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0 8px;
+    justify-content: center;
+}
+
+#minimap-slider {
+    flex: 1;
+    max-width: 300px;
+    accent-color: #4A90D9;
+}
+
+.minimap-time {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: #ccc;
+    min-width: 40px;
+}
+
+.minimap-toggles {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.minimap-toggles label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.minimap-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+.legend-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Build Order */
+.build-order-grid {
+    display: flex;
+    gap: 16px;
+}
+
+.build-order-column {
+    flex: 1;
+    min-width: 0;
+}
+
+.build-order-player {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #333;
+}
+
+.build-order-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.build-order-entry {
+    display: flex;
+    gap: 8px;
+    padding: 3px 0;
+    font-size: 0.82rem;
+    align-items: baseline;
+}
+
+.bo-time {
+    color: #888;
+    font-family: 'Courier New', monospace;
+    min-width: 36px;
+}
+
+.bo-supply {
+    color: #666;
+    font-family: 'Courier New', monospace;
+    min-width: 24px;
+    text-align: right;
+}
+
+.bo-name {
+    color: #c9d1d9;
+}
+
+.bo-building {
+    color: #fbbf24;
+}
+
+.bo-unit {
+    color: #60a5fa;
+}
+
+.bo-upgrade {
+    color: #34d399;
 }
 
 /* Scrollbar */
-.log-output::-webkit-scrollbar {
+.log-output::-webkit-scrollbar,
+.build-order-list::-webkit-scrollbar {
     width: 8px;
 }
 
-.log-output::-webkit-scrollbar-track {
+.log-output::-webkit-scrollbar-track,
+.build-order-list::-webkit-scrollbar-track {
     background: #0d1117;
 }
 
-.log-output::-webkit-scrollbar-thumb {
+.log-output::-webkit-scrollbar-thumb,
+.build-order-list::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 4px;
 }
 
-.log-output::-webkit-scrollbar-thumb:hover {
+.log-output::-webkit-scrollbar-thumb:hover,
+.build-order-list::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+/* Hidden */
+.hidden {
+    display: none !important;
 }
 
 /* File input hidden */
@@ -230,5 +445,13 @@ header p {
     .tab-btn {
         padding: 8px 12px;
         font-size: 0.8rem;
+    }
+
+    .player-cards {
+        flex-direction: column;
+    }
+
+    .build-order-grid {
+        flex-direction: column;
     }
 }

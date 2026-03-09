@@ -1,8 +1,4 @@
-const RACE_COLORS = {
-    'Protoss': '#FFD700',
-    'Terran': '#4A90D9',
-    'Zerg': '#9B59B6',
-};
+const LEAGUE_NAMES = ['', 'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Grandmaster'];
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropZone = document.getElementById('drop-zone');
@@ -11,23 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('status-text');
     const progressBar = document.getElementById('progress-bar');
     const resultsSection = document.getElementById('results');
+    const gameSummary = document.getElementById('game-summary');
     const logOutput = document.getElementById('log-output');
     const downloadBtn = document.getElementById('download-btn');
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
 
     let currentLog = '';
     let pyodideLoaded = false;
 
-    // Tab switching
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.tab;
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabPanels.forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(`tab-${target}`).classList.add('active');
-        });
+    // Tab switching (use event delegation for dynamically queried elements)
+    document.querySelector('.tabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('.tab-btn');
+        if (!btn) return;
+        const target = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(`tab-${target}`).classList.add('active');
     });
 
     // Drag and drop
@@ -84,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultsSection.classList.add('hidden');
+        gameSummary.classList.add('hidden');
+        resetMinimap();
 
         try {
             if (!pyodideLoaded) {
@@ -91,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await initPyodide((msg) => {
                     const progressMap = {
                         'Loading Python runtime...': 20,
-                        'Installing sc2reader...': 50,
+                        'Installing dependencies...': 50,
                         'Loading parser...': 80,
                         'Ready': 100,
                     };
@@ -109,13 +106,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentLog = result.log;
             logOutput.textContent = result.log;
-            renderCharts(result.charts);
 
+            renderSummary(result.summary);
+            renderCharts(result.charts);
+            renderBuildOrder(result.build_order, result.charts.players);
+
+            if (result.minimap) {
+                initMinimap(result.minimap);
+            }
+
+            gameSummary.classList.remove('hidden');
             resultsSection.classList.remove('hidden');
             hideStatus();
 
             // Reset to log tab
-            tabBtns[0].click();
+            document.querySelector('.tab-btn[data-tab="log"]').click();
 
         } catch (err) {
             hideStatus();
@@ -124,14 +129,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // === GAME SUMMARY ===
+    function renderSummary(summary) {
+        const dur = summary.duration_seconds;
+        const durStr = `${Math.floor(dur / 60)}:${String(dur % 60).padStart(2, '0')}`;
+
+        let html = `<div class="summary-header">
+            <span class="summary-map">${summary.map}</span>
+            <span class="summary-duration">${durStr}</span>
+            ${summary.date ? `<span class="summary-date">${summary.date}</span>` : ''}
+        </div>
+        <div class="player-cards">`;
+
+        for (const p of summary.players) {
+            const [r, g, b] = p.color;
+            const resultClass = p.result === 'Win' ? 'result-win' : 'result-loss';
+            const league = LEAGUE_NAMES[p.highest_league] || '';
+
+            html += `<div class="player-card" style="border-left: 4px solid rgb(${r},${g},${b})">
+                <div class="player-name">${p.clan_tag ? `[${p.clan_tag}] ` : ''}${p.name}</div>
+                <div class="player-details">
+                    <span class="player-race">${p.race}</span>
+                    ${league ? `<span class="player-league">${league}</span>` : ''}
+                    <span class="player-result ${resultClass}">${p.result}</span>
+                </div>
+            </div>`;
+        }
+
+        html += '</div>';
+        gameSummary.innerHTML = html;
+    }
+
+    // === BUILD ORDER ===
+    function renderBuildOrder(buildOrder, players) {
+        const container = document.getElementById('build-order-content');
+        if (!buildOrder || !players.length) {
+            container.innerHTML = '<p>No build order data available.</p>';
+            return;
+        }
+
+        let html = '<div class="build-order-grid">';
+        for (const player of players) {
+            const entries = buildOrder[player.name] || [];
+            const [r, g, b] = player.color;
+
+            html += `<div class="build-order-column">
+                <h3 class="build-order-player" style="color: rgb(${r},${g},${b})">${player.name}</h3>
+                <div class="build-order-list">`;
+
+            for (const entry of entries) {
+                const timeStr = `${Math.floor(entry.second / 60)}:${String(entry.second % 60).padStart(2, '0')}`;
+                const typeClass = `bo-${entry.type}`;
+                html += `<div class="build-order-entry">
+                    <span class="bo-time">${timeStr}</span>
+                    <span class="bo-supply">${entry.supply}</span>
+                    <span class="bo-name ${typeClass}">${entry.name}</span>
+                </div>`;
+            }
+
+            html += '</div></div>';
+        }
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    // === CHARTS ===
     function renderCharts(charts) {
         renderEconomyChart(charts);
         renderSupplyChart(charts);
         renderArmyChart(charts);
+        renderTradesChart(charts);
+        renderBankChart(charts);
+        renderApmChart(charts);
     }
 
-    function getPlayerColor(player) {
-        return RACE_COLORS[player.race] || '#CCCCCC';
+    function playerColor(player) {
+        if (player.color) {
+            const [r, g, b] = player.color;
+            return `rgb(${r},${g},${b})`;
+        }
+        return '#CCCCCC';
+    }
+
+    function playerColorAlpha(player, alpha) {
+        if (player.color) {
+            const [r, g, b] = player.color;
+            return `rgba(${r},${g},${b},${alpha})`;
+        }
+        return `rgba(204,204,204,${alpha})`;
     }
 
     function renderEconomyChart(charts) {
@@ -141,12 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const datasets = [];
         charts.players.forEach(player => {
             const data = charts.economy[player.name] || [];
-            const color = getPlayerColor(player);
+            const color = playerColor(player);
             datasets.push({
                 label: `${player.name} - Workers`,
                 data: data.map(d => ({ x: d.minute, y: d.workers })),
                 borderColor: color,
-                backgroundColor: color + '33',
+                backgroundColor: playerColorAlpha(player, 0.2),
                 tension: 0.3,
                 fill: false,
             });
@@ -176,12 +261,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const datasets = [];
         charts.players.forEach(player => {
             const data = charts.supply[player.name] || [];
-            const color = getPlayerColor(player);
+            const color = playerColor(player);
             datasets.push({
                 label: `${player.name} - Supply Used`,
                 data: data.map(d => ({ x: d.minute, y: d.used })),
                 borderColor: color,
-                backgroundColor: color + '33',
+                backgroundColor: playerColorAlpha(player, 0.2),
                 tension: 0.3,
                 fill: false,
             });
@@ -210,12 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const datasets = [];
         charts.players.forEach(player => {
             const data = charts.army_value[player.name] || [];
-            const color = getPlayerColor(player);
+            const color = playerColor(player);
             datasets.push({
                 label: `${player.name} - Army Value`,
-                data: data.map(d => ({ x: d.minute, y: d.minerals + d.gas })),
+                data: data.map(d => ({ x: d.minute, y: d.value })),
                 borderColor: color,
-                backgroundColor: color + '33',
+                backgroundColor: playerColorAlpha(player, 0.15),
                 tension: 0.3,
                 fill: true,
             });
@@ -224,7 +309,100 @@ document.addEventListener('DOMContentLoaded', () => {
         window.armyChart = new Chart(ctx, {
             type: 'line',
             data: { datasets },
-            options: chartOptions('Army Value (estimated)', 'Resources'),
+            options: chartOptions('Army Value (engine-tracked)', 'Resources'),
+        });
+    }
+
+    function renderTradesChart(charts) {
+        const ctx = document.getElementById('trades-chart').getContext('2d');
+        if (window.tradesChart) window.tradesChart.destroy();
+
+        const datasets = [];
+        charts.players.forEach(player => {
+            const data = charts.resources_lost_killed[player.name] || [];
+            const color = playerColor(player);
+            datasets.push({
+                label: `${player.name} - Killed`,
+                data: data.map(d => ({ x: d.minute, y: d.killed })),
+                borderColor: color,
+                backgroundColor: 'transparent',
+                tension: 0.3,
+                fill: false,
+            });
+            datasets.push({
+                label: `${player.name} - Lost`,
+                data: data.map(d => ({ x: d.minute, y: d.lost })),
+                borderColor: color,
+                borderDash: [5, 5],
+                backgroundColor: 'transparent',
+                tension: 0.3,
+                fill: false,
+            });
+        });
+
+        window.tradesChart = new Chart(ctx, {
+            type: 'line',
+            data: { datasets },
+            options: chartOptions('Resources Lost vs Killed', 'Resources'),
+        });
+    }
+
+    function renderBankChart(charts) {
+        const ctx = document.getElementById('bank-chart').getContext('2d');
+        if (window.bankChart) window.bankChart.destroy();
+
+        const datasets = [];
+        charts.players.forEach(player => {
+            const data = charts.resource_bank[player.name] || [];
+            const color = playerColor(player);
+            datasets.push({
+                label: `${player.name} - Minerals`,
+                data: data.map(d => ({ x: d.minute, y: d.minerals })),
+                borderColor: color,
+                backgroundColor: 'transparent',
+                tension: 0.3,
+                fill: false,
+            });
+            datasets.push({
+                label: `${player.name} - Vespene`,
+                data: data.map(d => ({ x: d.minute, y: d.vespene })),
+                borderColor: color,
+                borderDash: [5, 5],
+                backgroundColor: 'transparent',
+                tension: 0.3,
+                fill: false,
+            });
+        });
+
+        window.bankChart = new Chart(ctx, {
+            type: 'line',
+            data: { datasets },
+            options: chartOptions('Resource Bank', 'Resources'),
+        });
+    }
+
+    function renderApmChart(charts) {
+        const ctx = document.getElementById('apm-chart').getContext('2d');
+        if (window.apmChart) window.apmChart.destroy();
+
+        const datasets = [];
+        charts.players.forEach(player => {
+            const data = charts.apm[player.name] || [];
+            const color = playerColor(player);
+            datasets.push({
+                label: `${player.name}`,
+                data: data.map(d => ({ x: d.minute, y: d.actions })),
+                borderColor: color,
+                backgroundColor: playerColorAlpha(player, 0.15),
+                tension: 0.3,
+                fill: true,
+            });
+        });
+
+        window.apmChart = new Chart(ctx, {
+            type: 'line',
+            data: { datasets },
+            options: chartOptions('Actions Per Minute', 'APM'),
         });
     }
 

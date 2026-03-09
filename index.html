@@ -29,6 +29,8 @@
             </div>
         </div>
 
+        <div id="game-summary" class="game-summary hidden"></div>
+
         <div id="results" class="results hidden">
             <div class="toolbar">
                 <button id="download-btn" class="btn">Download Log</button>
@@ -36,11 +38,33 @@
 
             <div class="tabs">
                 <button class="tab-btn active" data-tab="log">Event Log</button>
+                <button class="tab-btn" data-tab="minimap">Minimap</button>
+                <button class="tab-btn" data-tab="build">Build Order</button>
                 <button class="tab-btn" data-tab="charts">Charts</button>
             </div>
 
             <div id="tab-log" class="tab-panel active">
                 <pre id="log-output" class="log-output"></pre>
+            </div>
+
+            <div id="tab-minimap" class="tab-panel">
+                <div class="minimap-wrapper">
+                    <canvas id="minimap-canvas" width="500" height="500"></canvas>
+                    <div class="minimap-controls">
+                        <button id="minimap-play" class="btn btn-sm">Play</button>
+                        <input type="range" id="minimap-slider" min="0" max="100" value="0">
+                        <span id="minimap-time" class="minimap-time">0:00</span>
+                    </div>
+                    <div class="minimap-toggles">
+                        <label><input type="checkbox" id="minimap-show-buildings" checked> Buildings</label>
+                        <label><input type="checkbox" id="minimap-show-workers"> Workers</label>
+                    </div>
+                    <div class="minimap-legend" id="minimap-legend"></div>
+                </div>
+            </div>
+
+            <div id="tab-build" class="tab-panel">
+                <div id="build-order-content" class="build-order-content"></div>
             </div>
 
             <div id="tab-charts" class="tab-panel">
@@ -53,11 +77,21 @@
                 <div class="chart-container">
                     <canvas id="army-chart"></canvas>
                 </div>
+                <div class="chart-container">
+                    <canvas id="trades-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="bank-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="apm-chart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="js/parser.js"></script>
+    <script src="js/minimap.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
